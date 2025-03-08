@@ -103,19 +103,22 @@ export function FeaturedPropertyCarousel() {
   const handleMouseLeave = () => setIsAutoPlaying(true);
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-12 md:py-20 bg-gray-50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 md:mb-12">
           <Text
             variant="small"
             className="uppercase tracking-wider text-emerald-600 font-semibold mb-2"
           >
             Exclusive Listings
           </Text>
-          <Heading level={2} className="mb-4">
+          <Heading level={2} className="mb-4 text-3xl md:text-4xl">
             Featured Properties
           </Heading>
-          <Text variant="lead" className="max-w-2xl mx-auto text-gray-600">
+          <Text
+            variant="lead"
+            className="max-w-2xl mx-auto text-gray-600 text-sm md:text-base"
+          >
             Explore our handpicked selection of exceptional properties, offering
             luxury, comfort, and exceptional investment potential.
           </Text>
@@ -126,8 +129,8 @@ export function FeaturedPropertyCarousel() {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <div className="overflow-hidden rounded-xl shadow-2xl">
-            <div className="relative aspect-[16/9] bg-gray-200">
+          <div className="overflow-hidden rounded-lg md:rounded-xl shadow-lg md:shadow-2xl">
+            <div className="relative aspect-[4/3] md:aspect-[16/9] bg-gray-200">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={current}
@@ -147,7 +150,7 @@ export function FeaturedPropertyCarousel() {
               </AnimatePresence>
 
               {/* Property Info Box */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+              <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={current}
@@ -155,41 +158,44 @@ export function FeaturedPropertyCarousel() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.4, delay: 0.2 }}
-                    className="bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-lg max-w-2xl"
+                    className="bg-white/95 backdrop-blur-sm rounded-lg md:rounded-xl p-4 md:p-6 shadow-md md:shadow-lg max-w-full md:max-w-2xl"
                   >
-                    <div className="flex items-center text-emerald-600 text-sm font-medium mb-2">
-                      <Map size={16} className="mr-2" />
+                    <div className="flex items-center text-emerald-600 text-xs md:text-sm font-medium mb-2">
+                      <Map size={14} className="mr-2" />
                       {properties[current].location}
                     </div>
-                    <Heading level={3} className="mb-2">
+                    <Heading
+                      level={3}
+                      className="mb-2 text-lg md:text-2xl font-semibold"
+                    >
                       {properties[current].title}
                     </Heading>
-                    <div className="text-2xl font-semibold text-emerald-600 mb-4">
+                    <div className="text-xl md:text-2xl font-semibold text-emerald-600 mb-4">
                       {properties[current].price}
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mb-4">
                       <div className="flex items-center">
-                        <BedDouble size={18} className="mr-2 text-gray-500" />
-                        <Text variant="small">
+                        <BedDouble size={16} className="mr-2 text-gray-500" />
+                        <Text variant="small" className="text-xs md:text-sm">
                           {properties[current].details.beds} Beds
                         </Text>
                       </div>
                       <div className="flex items-center">
-                        <Bath size={18} className="mr-2 text-gray-500" />
-                        <Text variant="small">
+                        <Bath size={16} className="mr-2 text-gray-500" />
+                        <Text variant="small" className="text-xs md:text-sm">
                           {properties[current].details.baths} Baths
                         </Text>
                       </div>
                       <div className="flex items-center">
-                        <Maximize2 size={18} className="mr-2 text-gray-500" />
-                        <Text variant="small">
+                        <Maximize2 size={16} className="mr-2 text-gray-500" />
+                        <Text variant="small" className="text-xs md:text-sm">
                           {properties[current].details.area}
                         </Text>
                       </div>
                       <div className="flex items-center">
-                        <Home size={18} className="mr-2 text-gray-500" />
-                        <Text variant="small">
+                        <Home size={16} className="mr-2 text-gray-500" />
+                        <Text variant="small" className="text-xs md:text-sm">
                           {properties[current].details.type}
                         </Text>
                       </div>
@@ -197,7 +203,7 @@ export function FeaturedPropertyCarousel() {
 
                     <Link
                       to="/properties"
-                      className="inline-block bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200"
+                      className="inline-block bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 md:px-6 md:py-2 rounded-lg text-sm md:text-base font-medium transition-colors duration-200"
                     >
                       View Details
                     </Link>
@@ -208,26 +214,26 @@ export function FeaturedPropertyCarousel() {
           </div>
 
           {/* Navigation Buttons */}
-          <div className="flex items-center justify-between absolute top-1/2 left-4 right-4 -translate-y-1/2">
+          <div className="flex items-center justify-between absolute top-1/2 left-2 right-2 md:left-4 md:right-4 -translate-y-1/2">
             <button
               onClick={(e) => {
                 e.preventDefault();
                 prevSlide();
               }}
-              className="bg-white/80 hover:bg-white rounded-full p-2 shadow-md transition-all duration-200 focus:outline-none"
+              className="bg-white/80 hover:bg-white rounded-full p-1 md:p-2 shadow-md transition-all duration-200 focus:outline-none"
               aria-label="Previous property"
             >
-              <ChevronLeft size={24} className="text-gray-800" />
+              <ChevronLeft size={20} className="text-gray-800" />
             </button>
             <button
               onClick={(e) => {
                 e.preventDefault();
                 nextSlide();
               }}
-              className="bg-white/80 hover:bg-white rounded-full p-2 shadow-md transition-all duration-200 focus:outline-none"
+              className="bg-white/80 hover:bg-white rounded-full p-1 md:p-2 shadow-md transition-all duration-200 focus:outline-none"
               aria-label="Next property"
             >
-              <ChevronRight size={24} className="text-gray-800" />
+              <ChevronRight size={20} className="text-gray-800" />
             </button>
           </div>
 
@@ -237,9 +243,9 @@ export function FeaturedPropertyCarousel() {
               <button
                 key={index}
                 onClick={() => setCurrent(index)}
-                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                className={`w-2 h-2 md:w-2.5 md:h-2.5 rounded-full transition-all duration-300 ${
                   index === current
-                    ? "bg-emerald-600 w-8"
+                    ? "bg-emerald-600 w-6 md:w-8"
                     : "bg-gray-300 hover:bg-gray-400"
                 }`}
                 aria-label={`Go to slide ${index + 1}`}
@@ -248,10 +254,10 @@ export function FeaturedPropertyCarousel() {
           </div>
         </div>
 
-        <div className="text-center mt-10">
+        <div className="text-center mt-8 md:mt-10">
           <Link
             to="/properties"
-            className="inline-flex items-center text-emerald-600 hover:text-emerald-800 font-medium"
+            className="inline-flex items-center text-emerald-600 hover:text-emerald-800 font-medium text-sm md:text-base"
           >
             View All Properties
             <ChevronRight size={16} className="ml-1" />

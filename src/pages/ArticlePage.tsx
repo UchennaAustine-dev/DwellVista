@@ -75,7 +75,7 @@ export default function ArticlePage() {
           animate={{ y: 0, opacity: 1 }}
           className="mb-8"
         >
-          <div className="flex items-center gap-2 text-sm text-emerald-600 mb-3">
+          <div className="flex flex-wrap items-center gap-2 text-sm text-emerald-600 mb-3">
             <span className="uppercase font-medium">{article.category}</span>
             <span>•</span>
             <span className="flex items-center gap-1">
@@ -89,9 +89,11 @@ export default function ArticlePage() {
             </span>
           </div>
 
-          <ArticleTitle className="mb-6">{article.title}</ArticleTitle>
+          <ArticleTitle className="mb-6 text-2xl sm:text-3xl md:text-4xl">
+            {article.title}
+          </ArticleTitle>
 
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <Avatar>
                 <AvatarImage
@@ -135,12 +137,12 @@ export default function ArticlePage() {
           <img
             src={article.image || "/placeholder.svg"}
             alt={article.title}
-            className="w-full rounded-lg object-cover h-[500px]"
+            className="w-full rounded-lg object-cover h-[200px] sm:h-[300px] md:h-[400px] lg:h-[500px]"
           />
         </motion.div>
 
         {/* Article Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3">
             {article.content.sections.map((section, index) => (
               <motion.section
@@ -151,15 +153,17 @@ export default function ArticlePage() {
                 transition={{ delay: index * 0.1 }}
                 className="mb-12"
               >
-                <SectionTitle className="mb-6">{section.title}</SectionTitle>
+                <SectionTitle className="mb-6 text-xl sm:text-2xl">
+                  {section.title}
+                </SectionTitle>
                 {section.image && (
                   <img
                     src={section.image || "/placeholder.svg"}
                     alt={section.title}
-                    className="mb-6 w-full rounded-lg object-cover"
+                    className="mb-6 w-full rounded-lg object-cover h-[200px] sm:h-[300px]"
                   />
                 )}
-                <Paragraph className="mb-6 text-lg whitespace-pre-line article-content">
+                <Paragraph className="mb-6 text-base sm:text-lg whitespace-pre-line article-content">
                   {section.content}
                 </Paragraph>
                 {section.quote && (
@@ -173,10 +177,10 @@ export default function ArticlePage() {
               </motion.section>
             ))}
 
-            <Separator className="my-12" />
+            <Separator className="my-8 sm:my-12" />
 
             {/* Tags */}
-            <div className="mb-12">
+            <div className="mb-8 sm:mb-12">
               <h3 className="text-lg font-semibold mb-4">Tags</h3>
               <div className="flex flex-wrap gap-2">
                 {article.tags?.map((tag, index) => (
@@ -208,8 +212,8 @@ export default function ArticlePage() {
             </div>
 
             {/* Comments Section */}
-            <section className="mb-12">
-              <h3 className="text-2xl font-bold mb-6 font-serif">
+            <section className="mb-8 sm:mb-12">
+              <h3 className="text-xl sm:text-2xl font-bold mb-6 font-serif">
                 {articleComments.length} Comments
               </h3>
               <div className="space-y-6">
@@ -251,7 +255,7 @@ export default function ArticlePage() {
 
             {/* Comment Form */}
             <section>
-              <h3 className="text-2xl font-bold mb-6 font-serif">
+              <h3 className="text-xl sm:text-2xl font-bold mb-6 font-serif">
                 Leave a comment
               </h3>
               <form className="space-y-4">
@@ -315,12 +319,12 @@ export default function ArticlePage() {
           {/* Sidebar */}
           <div className="lg:col-span-1">
             <div className="sticky top-24 space-y-8">
-              <div className="bg-gray-50 p-6 rounded-lg">
+              <div className="bg-gray-50 p-4 sm:p-6 rounded-lg">
                 <h3 className="text-lg font-bold mb-4 font-serif">
                   About the Author
                 </h3>
                 <div className="flex flex-col items-center text-center mb-4">
-                  <Avatar className="h-20 w-20 mb-3">
+                  <Avatar className="h-16 w-16 sm:h-20 sm:w-20 mb-3">
                     <AvatarImage
                       src={article.author.avatar}
                       alt={article.author.name}
@@ -397,7 +401,7 @@ export default function ArticlePage() {
               </div>
 
               {/* Newsletter */}
-              <div className="bg-emerald-50 p-6 rounded-lg">
+              <div className="bg-emerald-50 p-4 sm:p-6 rounded-lg">
                 <h3 className="text-lg font-bold mb-2 font-serif">Subscribe</h3>
                 <p className="text-sm text-muted-foreground mb-4">
                   Get the latest articles delivered straight to your inbox

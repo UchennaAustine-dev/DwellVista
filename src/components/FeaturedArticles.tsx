@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -29,7 +27,7 @@ export default function FeaturedArticles() {
 
   return (
     <div className="relative overflow-hidden rounded-xl bg-gray-100">
-      <div className="flex">
+      <div className="flex flex-col md:flex-row">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
@@ -39,25 +37,31 @@ export default function FeaturedArticles() {
             transition={{ duration: 0.5 }}
             className="w-full md:flex"
           >
-            <div className="md:w-1/2">
+            {/* Image Section */}
+            <div className="w-full md:w-1/2">
               <img
                 src={featuredArticles[currentIndex].image || "/placeholder.svg"}
                 alt={featuredArticles[currentIndex].title}
-                className="h-[300px] w-full object-cover md:h-[500px]"
+                className="h-[200px] w-full object-cover sm:h-[300px] md:h-[400px] lg:h-[500px]"
               />
             </div>
-            <div className="flex flex-col justify-center p-6 md:w-1/2 md:p-12">
-              <Badge variant="outline" className="mb-4 w-fit">
+
+            {/* Content Section */}
+            <div className="flex flex-col justify-center p-4 sm:p-6 md:w-1/2 md:p-8 lg:p-12">
+              <Badge
+                variant="outline"
+                className="mb-3 w-fit text-xs sm:text-sm"
+              >
                 {featuredArticles[currentIndex].category}
               </Badge>
-              <h2 className="mb-4 text-2xl font-bold font-serif leading-tight md:text-3xl lg:text-4xl">
+              <h2 className="mb-4 text-xl font-bold font-serif leading-tight sm:text-2xl md:text-3xl lg:text-4xl">
                 {featuredArticles[currentIndex].title}
               </h2>
-              <p className="mb-6 text-muted-foreground">
+              <p className="mb-4 text-sm text-muted-foreground sm:text-base">
                 {featuredArticles[currentIndex].excerpt}
               </p>
-              <div className="mb-6 flex items-center gap-3">
-                <Avatar>
+              <div className="mb-4 flex items-center gap-2 sm:gap-3">
+                <Avatar className="h-8 w-8 sm:h-10 sm:w-10">
                   <AvatarImage
                     src={featuredArticles[currentIndex].author.avatar}
                     alt={featuredArticles[currentIndex].author.name}
@@ -67,16 +71,16 @@ export default function FeaturedArticles() {
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <p className="text-sm font-medium">
+                  <p className="text-sm font-medium sm:text-base">
                     {featuredArticles[currentIndex].author.name}
                   </p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs text-muted-foreground sm:text-sm">
                     {featuredArticles[currentIndex].date}
                   </p>
                 </div>
               </div>
               <Link to={`/article/${featuredArticles[currentIndex].slug}`}>
-                <Button className="bg-emerald-600 hover:bg-emerald-700">
+                <Button className="bg-emerald-600 hover:bg-emerald-700 text-xs sm:text-sm">
                   Read Article
                 </Button>
               </Link>
@@ -85,30 +89,32 @@ export default function FeaturedArticles() {
         </AnimatePresence>
       </div>
 
-      <div className="absolute bottom-6 right-6 flex gap-2">
+      {/* Navigation Buttons */}
+      <div className="absolute bottom-4 right-4 flex gap-2 sm:bottom-6 sm:right-6">
         <Button
           size="icon"
           variant="secondary"
-          className="rounded-full"
+          className="h-8 w-8 rounded-full sm:h-10 sm:w-10"
           onClick={prevSlide}
         >
-          <ChevronLeft className="h-4 w-4" />
+          <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
         </Button>
         <Button
           size="icon"
           variant="secondary"
-          className="rounded-full"
+          className="h-8 w-8 rounded-full sm:h-10 sm:w-10"
           onClick={nextSlide}
         >
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
         </Button>
       </div>
 
-      <div className="absolute bottom-6 left-6 flex gap-2">
+      {/* Indicators */}
+      <div className="absolute bottom-4 left-4 flex gap-2 sm:bottom-6 sm:left-6">
         {featuredArticles.map((_, index) => (
           <button
             key={index}
-            className={`h-2 w-2 rounded-full transition-colors ${
+            className={`h-2 w-2 rounded-full transition-colors sm:h-2.5 sm:w-2.5 ${
               index === currentIndex ? "bg-emerald-600" : "bg-gray-300"
             }`}
             onClick={() => setCurrentIndex(index)}

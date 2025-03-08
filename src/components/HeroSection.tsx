@@ -49,7 +49,7 @@ export default function HeroSection() {
           <img
             src={currentArticle.image || "/placeholder.svg"}
             alt={currentArticle.title}
-            className="h-[500px] w-full object-cover"
+            className="h-[500px] w-full object-cover md:h-[600px] lg:h-[700px]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
           <motion.div
@@ -61,10 +61,10 @@ export default function HeroSection() {
             <Badge variant="secondary" className="mb-2">
               {currentArticle.category}
             </Badge>
-            <h3 className="mb-2 text-2xl font-bold md:text-3xl">
+            <h3 className="mb-2 text-2xl font-bold md:text-3xl lg:text-4xl">
               {currentArticle.title}
             </h3>
-            <p className="mb-4 max-w-2xl text-sm text-gray-200">
+            <p className="mb-4 max-w-2xl text-sm text-gray-200 md:text-base lg:text-lg">
               {currentArticle.excerpt}
             </p>
             <Link to={`/article/${currentArticle.slug}`}>
