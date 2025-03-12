@@ -10,6 +10,7 @@ import ArticleGrid from "../components/ArticleGrid";
 import NewsletterSection from "@/components/home/NewsletterSection";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import FeaturedArticles from "@/components/FeaturedArticles";
+import SEO from "@/components/SEO";
 
 export default function HomePage() {
   return (
@@ -18,6 +19,11 @@ export default function HomePage() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
+      <SEO
+        title="DwellVista | Your Premier Real Estate & Interior Design Blog"
+        description="Discover the latest trends in real estate, architecture, interior design, and home decor with expert insights and inspiration."
+        canonical="/"
+      />
       <ScrollToTop />
       <HeroSection />
       <FeaturedPropertyCarousel />

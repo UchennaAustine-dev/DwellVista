@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dwellvista.site/sitemap.xml
+

@@ -9,6 +9,9 @@ import HomePage from "./pages/HomePage";
 import ArticlePage from "./pages/ArticlePage";
 import Footer from "./components/common/Footer";
 import MainNav from "./components/common/MainNav";
+import GDPRConsent from "./components/GDPRConsent";
+import CategoryPage from "./pages/CategoryPage";
+import NotFound from "./pages/NotFound";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -18,6 +21,8 @@ function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<HomePage />} />
         <Route path="/article/:slug" element={<ArticlePage />} />
+        <Route path="/category/:slug" element={<CategoryPage />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
   );
@@ -33,6 +38,7 @@ function App() {
         </main>
         <Footer />
       </div>
+      <GDPRConsent />
     </Router>
   );
 }

@@ -28,6 +28,9 @@ import { Separator } from "../components/ui/separator";
 import { Badge } from "../components/ui/badge";
 import ReadingProgress from "../components/ReadingProgress";
 import RecommendedArticles from "../components/RecommendedArticles";
+import SEO from "@/components/SEO";
+import ArticleJsonLd from "@/components/ArticleJsonLd";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export default function ArticlePage() {
   const { slug } = useParams();
@@ -40,6 +43,17 @@ export default function ArticlePage() {
     ? articles.filter((a) => article.relatedArticles?.includes(a.id))
     : [];
 
+  // Format date for SEO
+  const formatDateForSEO = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toISOString();
+  };
+
+  // Create a description from the excerpt
+  const seoDescription =
+    article.excerpt ||
+    `Read about ${article.title} in our detailed guide on ${article.category}.`;
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -47,6 +61,24 @@ export default function ArticlePage() {
       exit={{ opacity: 0 }}
       className="min-h-screen bg-background"
     >
+      <SEO
+        title={`${article.title} | DwellVista`}
+        description={seoDescription}
+        canonical={`/article/${article.slug}`}
+        ogImage={article.image}
+        ogType="article"
+        keywords={`${article.category.toLowerCase()}, interior design, real estate, architecture, home decor`}
+        author={article.author.name}
+        publishedTime={formatDateForSEO(article.date)}
+        articleSection={article.category}
+      />
+
+      <ArticleJsonLd
+        article={article}
+        url={`https://dwellvista.site/article/${article.slug}`}
+      />
+
+      <ScrollToTop />
       <ReadingProgress />
       {/* Navigation Dots */}
       <div className="fixed left-4 top-1/2 -translate-y-1/2 space-y-2 hidden md:block">

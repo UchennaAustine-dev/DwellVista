@@ -1,217 +1,122 @@
-"use client";
-
 import { useEffect } from "react";
 
 interface SEOProps {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: "website" | "article";
   keywords?: string;
   author?: string;
-  image?: string;
-  url?: string;
-  type?: "website" | "article";
   publishedTime?: string;
   modifiedTime?: string;
-  articleTags?: string[];
+  articleSection?: string;
 }
 
-const SEO = ({
-  title,
-  description,
-  keywords,
-  author = "Lumina Insights",
-  image = "/og-image.jpg",
-  url,
-  type = "website",
+export default function SEO({
+  title = "DwellVista | Real Estate & Interior Design Blog",
+  description = "Your premier destination for real estate insights, interior design inspiration, and architectural excellence.",
+  canonical = "",
+  ogImage = "/images/og-image.jpg",
+  ogType = "website",
+  keywords = "real estate, interior design, architecture, home decor, property, renovation",
+  author = "DwellVista Team",
   publishedTime,
   modifiedTime,
-  articleTags,
-}: SEOProps) => {
-  const siteUrl = "https://www.dwellvista.site/"; // Replace with your actual domain
-  const fullUrl = url ? `${siteUrl}${url}` : siteUrl;
-  const fullImage = image.startsWith("http") ? image : `${siteUrl}${image}`;
+  articleSection,
+}: SEOProps) {
+  const siteUrl = "https://dwellvista.site"; // Replace with your actual domain
+  const fullCanonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
+  const fullOgImageUrl = ogImage.startsWith("http")
+    ? ogImage
+    : `${siteUrl}${ogImage}`;
 
   useEffect(() => {
     // Update document title
-    document.title = `${title} | Lumina Insights`;
+    document.title = title;
 
-    // Function to create or update a meta tag
-    const setMetaTag = (name: string, content: string, property?: string) => {
-      // First, try to find an existing tag
-      let meta = property
-        ? document.querySelector(`meta[property="${property}"]`)
-        : document.querySelector(`meta[name="${name}"]`);
+    // Update meta tags
+    updateMetaTag("description", description);
+    updateMetaTag("keywords", keywords);
 
-      // If the tag doesn't exist, create it
-      if (!meta) {
-        meta = document.createElement("meta");
-        if (property) {
-          meta.setAttribute("property", property);
-        } else {
-          meta.setAttribute("name", name);
-        }
-        document.head.appendChild(meta);
-      }
+    // Update link tags
+    updateLinkTag("canonical", fullCanonicalUrl);
 
-      // Set the content
-      meta.setAttribute("content", content);
-    };
+    // Update Open Graph tags
+    updateMetaTag("og:type", ogType);
+    updateMetaTag("og:url", fullCanonicalUrl);
+    updateMetaTag("og:title", title);
+    updateMetaTag("og:description", description);
+    updateMetaTag("og:image", fullOgImageUrl);
+    updateMetaTag("og:site_name", "DwellVista");
 
-    // Function to create or update a link tag
-    const setLinkTag = (rel: string, href: string) => {
-      // First, try to find an existing tag
-      let link = document.querySelector(`link[rel="${rel}"]`);
+    // Update Twitter tags
+    updateMetaTag("twitter:card", "summary_large_image");
+    updateMetaTag("twitter:url", fullCanonicalUrl);
+    updateMetaTag("twitter:title", title);
+    updateMetaTag("twitter:description", description);
+    updateMetaTag("twitter:image", fullOgImageUrl);
 
-      // If the tag doesn't exist, create it
-      if (!link) {
-        link = document.createElement("link");
-        link.setAttribute("rel", rel);
-        document.head.appendChild(link);
-      }
-
-      // Set the href
-      link.setAttribute("href", href);
-    };
-
-    // Basic Meta Tags
-    setMetaTag("description", description);
-    if (keywords) setMetaTag("keywords", keywords);
-    setMetaTag("author", author);
-
-    // Canonical URL
-    setLinkTag("canonical", fullUrl);
-
-    // Open Graph / Facebook
-    setMetaTag("og:type", type, "og:type");
-    setMetaTag("og:url", fullUrl, "og:url");
-    setMetaTag("og:title", title, "og:title");
-    setMetaTag("og:description", description, "og:description");
-    setMetaTag("og:image", fullImage, "og:image");
-    setMetaTag("og:site_name", "Lumina Insights", "og:site_name");
-
-    // Twitter
-    setMetaTag("twitter:card", "summary_large_image", "twitter:card");
-    setMetaTag("twitter:url", fullUrl, "twitter:url");
-    setMetaTag("twitter:title", title, "twitter:title");
-    setMetaTag("twitter:description", description, "twitter:description");
-    setMetaTag("twitter:image", fullImage, "twitter:image");
-
-    // Article Specific Meta Tags
-    if (type === "article" && publishedTime) {
-      setMetaTag(
-        "article:published_time",
-        publishedTime,
-        "article:published_time"
-      );
-    }
-    if (type === "article" && modifiedTime) {
-      setMetaTag(
-        "article:modified_time",
-        modifiedTime,
-        "article:modified_time"
-      );
-    }
-    if (type === "article" && articleTags) {
-      // Remove any existing article tags
-      document
-        .querySelectorAll('meta[property="article:tag"]')
-        .forEach((tag) => {
-          document.head.removeChild(tag);
-        });
-
-      // Add new article tags
-      articleTags.forEach((tag) => {
-        const metaTag = document.createElement("meta");
-        metaTag.setAttribute("property", "article:tag");
-        metaTag.setAttribute("content", tag);
-        document.head.appendChild(metaTag);
-      });
+    // Article specific tags
+    if (ogType === "article") {
+      updateMetaTag("article:author", author);
+      if (publishedTime) updateMetaTag("article:published_time", publishedTime);
+      if (modifiedTime) updateMetaTag("article:modified_time", modifiedTime);
+      if (articleSection) updateMetaTag("article:section", articleSection);
     }
 
-    // JSON-LD Structured Data
-    const structuredData =
-      type === "article"
-        ? {
-            "@context": "https://schema.org",
-            "@type": "Article",
-            headline: title,
-            description: description,
-            image: fullImage,
-            author: {
-              "@type": "Person",
-              name: author,
-            },
-            publisher: {
-              "@type": "Organization",
-              name: "Lumina Insights",
-              logo: {
-                "@type": "ImageObject",
-                url: `${siteUrl}/logo.png`,
-              },
-            },
-            datePublished: publishedTime,
-            dateModified: modifiedTime || publishedTime,
-            mainEntityOfPage: {
-              "@type": "WebPage",
-              "@id": fullUrl,
-            },
-          }
-        : {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            name: "Lumina Insights",
-            url: siteUrl,
-            description: description,
-          };
-
-    // Remove any existing JSON-LD script
-    const existingScript = document.querySelector(
-      'script[type="application/ld+json"]'
-    );
-    if (existingScript) {
-      document.head.removeChild(existingScript);
-    }
-
-    // Add new JSON-LD script
-    const script = document.createElement("script");
-    script.setAttribute("type", "application/ld+json");
-    script.textContent = JSON.stringify(structuredData);
-    document.head.appendChild(script);
-
-    // Cleanup function to remove article tags and JSON-LD when component unmounts
+    // Cleanup function to reset title when component unmounts
     return () => {
-      if (type === "article" && articleTags) {
-        document
-          .querySelectorAll('meta[property="article:tag"]')
-          .forEach((tag) => {
-            document.head.removeChild(tag);
-          });
-      }
-
-      const scriptToRemove = document.querySelector(
-        'script[type="application/ld+json"]'
-      );
-      if (scriptToRemove) {
-        document.head.removeChild(scriptToRemove);
-      }
+      document.title = "DwellVista | Real Estate & Interior Design Blog";
     };
   }, [
     title,
     description,
+    fullCanonicalUrl,
+    fullOgImageUrl,
+    ogType,
     keywords,
     author,
-    image,
-    url,
-    type,
     publishedTime,
     modifiedTime,
-    articleTags,
-    fullUrl,
-    fullImage,
+    articleSection,
   ]);
 
-  // This component doesn't render anything visible
   return null;
-};
+}
 
-export default SEO;
+// Helper function to update meta tags
+function updateMetaTag(name: string, content: string) {
+  let metaTag = document.querySelector(
+    `meta[name="${name}"], meta[property="${name}"]`
+  );
+
+  if (!metaTag) {
+    metaTag = document.createElement("meta");
+    if (
+      name.startsWith("og:") ||
+      name.startsWith("article:") ||
+      name.startsWith("twitter:")
+    ) {
+      metaTag.setAttribute("property", name);
+    } else {
+      metaTag.setAttribute("name", name);
+    }
+    document.head.appendChild(metaTag);
+  }
+
+  metaTag.setAttribute("content", content);
+}
+
+// Helper function to update link tags
+function updateLinkTag(rel: string, href: string) {
+  let linkTag = document.querySelector(`link[rel="${rel}"]`);
+
+  if (!linkTag) {
+    linkTag = document.createElement("link");
+    linkTag.setAttribute("rel", rel);
+    document.head.appendChild(linkTag);
+  }
+
+  linkTag.setAttribute("href", href);
+}
