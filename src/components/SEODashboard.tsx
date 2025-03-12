@@ -52,11 +52,10 @@ export default function SEODashboard() {
   const [healthScore, setHealthScore] = useState(0);
   const [newKeyword, setNewKeyword] = useState("");
   const [newPosition, setNewPosition] = useState("");
-  const [organicTrafficPercentage, setOrganicTrafficPercentage] =
-    useState(12.5); // Initialize with a default value
+  const [organicTrafficPercentage] = useState(12.5); // Initialize with a default value
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [trafficData, setTrafficData] = useState([
+  const [trafficData] = useState([
     { name: "Jan", organic: 400, direct: 240, referral: 180 },
     { name: "Feb", organic: 430, direct: 250, referral: 190 },
     { name: "Mar", organic: 470, direct: 260, referral: 200 },

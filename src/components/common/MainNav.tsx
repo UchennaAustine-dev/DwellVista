@@ -6,7 +6,11 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { to: "/", label: "HOME" },
-  { to: "/contact", label: "CONTACT" },
+  { to: "/properties", label: "PROPERTIES" },
+  { to: "/agents", label: "AGENTS" },
+  { to: "/blog", label: "BLOG" },
+  { to: "/themes", label: "THEMES" },
+  { to: "/contact-us", label: "CONTACT US" },
 ];
 
 export default function MainNav() {

@@ -13,6 +13,11 @@ import GDPRConsent from "./components/GDPRConsent";
 import CategoryPage from "./pages/CategoryPage";
 import NotFound from "./pages/NotFound";
 import AdminPage from "./pages/AdminPage";
+import AgentsPage from "./pages/AgentsPage";
+import BlogPage from "./pages/BlogPage";
+import ContactPage from "./pages/ContactPage";
+import PropertiesPage from "./pages/PropertiesPage";
+import ThemesPage from "./pages/ThemesPage";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -21,6 +26,11 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/properties" element={<PropertiesPage />} />
+        <Route path="/agents" element={<AgentsPage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/themes" element={<ThemesPage />} />
+        <Route path="/contact-us" element={<ContactPage />} />
         <Route path="/article/:slug" element={<ArticlePage />} />
         <Route path="/category/:slug" element={<CategoryPage />} />
         <Route path="/admin" element={<AdminPage />} />
