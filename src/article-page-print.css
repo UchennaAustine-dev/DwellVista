@@ -1,0 +1,100 @@
+/* Print styles for the article page */
+@media print {
+    /* Hide elements that shouldn't be printed */
+    header,
+    footer,
+    nav,
+    .sidebar,
+    button,
+    .comments-section,
+    .comment-form,
+    .newsletter-section,
+    .related-articles,
+    .scroll-to-top,
+    .share-buttons {
+      display: none !important;
+    }
+  
+    /* Reset layout for printing */
+    body {
+      font-size: 12pt;
+      line-height: 1.5;
+      color: #000;
+      background: #fff;
+      margin: 0;
+      padding: 0;
+    }
+  
+    /* Ensure the article content takes full width */
+    .container {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+  
+    /* Make sure images don't overflow */
+    img {
+      max-width: 100% !important;
+      page-break-inside: avoid;
+    }
+  
+    /* Improve typography for print */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      page-break-after: avoid;
+      page-break-inside: avoid;
+    }
+  
+    p,
+    blockquote,
+    ul,
+    ol,
+    dl,
+    table {
+      page-break-inside: avoid;
+    }
+  
+    /* Add URLs after links for better context in print */
+    a[href]:after {
+      content: " (" attr(href) ")";
+      font-size: 90%;
+      color: #333;
+    }
+  
+    /* Don't show URL for internal links */
+    a[href^="#"]:after {
+      content: "";
+    }
+  
+    /* Add page breaks where needed */
+    .article-section {
+      page-break-inside: avoid;
+    }
+  
+    /* Article header styling */
+    .article-title {
+      font-size: 24pt;
+      margin-bottom: 0.5cm;
+    }
+  
+    .article-meta {
+      font-size: 10pt;
+      color: #666;
+      margin-bottom: 1cm;
+    }
+  
+    /* Quote styling */
+    blockquote {
+      border-left: 3pt solid #ccc;
+      padding-left: 0.5cm;
+      margin-left: 0;
+      font-style: italic;
+    }
+  }
+  
+  

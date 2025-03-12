@@ -12,6 +12,7 @@ import MainNav from "./components/common/MainNav";
 import GDPRConsent from "./components/GDPRConsent";
 import CategoryPage from "./pages/CategoryPage";
 import NotFound from "./pages/NotFound";
+import AdminPage from "./pages/AdminPage";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -22,6 +23,7 @@ function AnimatedRoutes() {
         <Route path="/" element={<HomePage />} />
         <Route path="/article/:slug" element={<ArticlePage />} />
         <Route path="/category/:slug" element={<CategoryPage />} />
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
