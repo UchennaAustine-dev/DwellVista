@@ -2,23 +2,16 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  Search,
-  Mail,
-  Phone,
-  MapPin,
-  Star,
-  Heading1,
-  Heading3,
-} from "lucide-react";
+import { Search, Mail, Phone, MapPin, Star } from "lucide-react";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
+import { Heading, Text } from "../components/ui/typography";
 import SEO from "../components/SEO";
-import NewsletterSection from "@/components/home/NewsletterSection";
-import { Paragraph } from "@/components/ui/typography";
+import NewsletterSection from "../components/home/NewsletterSection";
+import { TopBannerAd, InArticleAd } from "../components/ads/AdLayout";
 
 // Sample agent data
 const agents = [
@@ -154,7 +147,12 @@ export default function AgentsPage() {
         className="pt-24"
       >
         <div className="container mx-auto px-4 py-8">
-          <Heading1 className="mb-8">Our Real Estate Experts</Heading1>
+          <Heading level={1} className="mb-8">
+            Our Real Estate Experts
+          </Heading>
+
+          {/* Top Banner Ad */}
+          <TopBannerAd />
 
           {/* Search */}
           <div className="mb-12 max-w-md">
@@ -169,10 +167,15 @@ export default function AgentsPage() {
             </div>
           </div>
 
+          {/* In-Article Ad */}
+          <InArticleAd />
+
           {/* Featured Agents */}
           {featuredAgents.length > 0 && (
             <div className="mb-12">
-              <Heading3 className="mb-6">Featured Agents</Heading3>
+              <Heading level={3} className="mb-6">
+                Featured Agents
+              </Heading>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {featuredAgents.map((agent) => (
                   <AgentCard key={agent.id} agent={agent} />
@@ -183,7 +186,9 @@ export default function AgentsPage() {
 
           {/* All Agents */}
           <div>
-            <Heading3 className="mb-6">All Agents</Heading3>
+            <Heading level={3} className="mb-6">
+              All Agents
+            </Heading>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {regularAgents.map((agent) => (
                 <AgentCard key={agent.id} agent={agent} />
@@ -210,15 +215,15 @@ export default function AgentsPage() {
           <div className="mt-16 bg-gray-50 dark:bg-gray-800 rounded-xl p-8">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
-                <Heading3 className="mb-4">
+                <Heading level={3} className="mb-4">
                   Join Our Team of Professionals
-                </Heading3>
-                <Paragraph className="mb-6">
+                </Heading>
+                <Text className="mb-6">
                   At DwellVista, we're always looking for talented real estate
                   professionals to join our team. If you're passionate about
                   helping clients find their dream homes and have a track record
                   of success, we'd love to hear from you.
-                </Paragraph>
+                </Text>
                 <Button className="bg-emerald-600 hover:bg-emerald-700">
                   Apply Now
                 </Button>

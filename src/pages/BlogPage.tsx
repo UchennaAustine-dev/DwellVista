@@ -2,16 +2,18 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Search, Calendar, User, Heading1, Heading3 } from "lucide-react";
+import { Search, Calendar, User } from "lucide-react";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "../components/ui/tabs";
+import { Heading } from "../components/ui/typography";
 import SEO from "../components/SEO";
 import Sidebar from "../components/Sidebar";
 import { articles } from "../data/articleData";
 import { Link } from "react-router-dom";
+import { TopBannerAd, InArticleAd } from "../components/ads/AdLayout";
 import NewsletterSection from "@/components/home/NewsletterSection";
 
 export default function BlogPage() {
@@ -56,12 +58,19 @@ export default function BlogPage() {
         className="pt-24"
       >
         <div className="container mx-auto px-4 py-8">
-          <Heading1 className="mb-8">Our Blog</Heading1>
+          <Heading level={1} className="mb-8">
+            Our Blog
+          </Heading>
+
+          {/* Top Banner Ad */}
+          <TopBannerAd />
 
           {/* Featured Articles */}
           {featuredArticles.length > 0 && (
             <div className="mb-12">
-              <Heading3 className="mb-6">Featured Articles</Heading3>
+              <Heading level={3} className="mb-6">
+                Featured Articles
+              </Heading>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {featuredArticles.map((article, index) => (
                   <motion.div
@@ -103,6 +112,9 @@ export default function BlogPage() {
               </div>
             </div>
           )}
+
+          {/* In-Article Ad */}
+          <InArticleAd />
 
           {/* Search and Categories */}
           <div className="mb-8">

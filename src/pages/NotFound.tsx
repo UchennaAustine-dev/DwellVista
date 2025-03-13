@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
-import { Heading1, Paragraph } from "@/components/ui/typography";
+import { Heading, Paragraph } from "@/components/ui/typography";
 
 export default function NotFound() {
   return (
@@ -14,7 +14,9 @@ export default function NotFound() {
       <div className="container mx-auto px-4 py-24 text-center">
         <div className="max-w-md mx-auto">
           <h1 className="text-9xl font-bold text-emerald-600 mb-4">404</h1>
-          <Heading1 className="mb-4">Page Not Found</Heading1>
+          <Heading level={1} className="mb-4">
+            Page Not Found
+          </Heading>
           <Paragraph className="mb-8">
             The page you are looking for might have been removed, had its name
             changed, or is temporarily unavailable.

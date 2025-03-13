@@ -2,24 +2,17 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  Search,
-  MapPin,
-  Bed,
-  Bath,
-  Square,
-  Filter,
-  Heading1,
-  Heading3,
-} from "lucide-react";
+import { Search, MapPin, Bed, Bath, Square, Filter } from "lucide-react";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { Select } from "../components/ui/select";
 import { Slider } from "../components/ui/slider";
 import { Card, CardContent } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
+import { Heading } from "../components/ui/typography";
 import SEO from "../components/SEO";
-import NewsletterSection from "@/components/home/NewsletterSection";
+import NewsletterSection from "../components/home/NewsletterSection";
+import { TopBannerAd, InArticleAd } from "../components/ads/AdLayout";
 
 // Sample property data
 const properties = [
@@ -140,7 +133,12 @@ export default function PropertiesPage() {
         className="pt-24"
       >
         <div className="container mx-auto px-4 py-8">
-          <Heading1 className="mb-8">Find Your Dream Property</Heading1>
+          <Heading level={1} className="mb-8">
+            Find Your Dream Property
+          </Heading>
+
+          {/* Top Banner Ad */}
+          <TopBannerAd />
 
           {/* Search and Filters */}
           <div className="mb-8">
@@ -208,10 +206,15 @@ export default function PropertiesPage() {
             )}
           </div>
 
+          {/* In-Article Ad */}
+          <InArticleAd />
+
           {/* Featured Properties */}
           {filteredProperties.some((p) => p.featured) && (
             <div className="mb-12">
-              <Heading3 className="mb-6">Featured Properties</Heading3>
+              <Heading level={3} className="mb-6">
+                Featured Properties
+              </Heading>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredProperties
                   .filter((property) => property.featured)
@@ -224,7 +227,9 @@ export default function PropertiesPage() {
 
           {/* All Properties */}
           <div>
-            <Heading3 className="mb-6">All Properties</Heading3>
+            <Heading level={3} className="mb-6">
+              All Properties
+            </Heading>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProperties.map((property) => (
                 <PropertyCard key={property.id} property={property} />

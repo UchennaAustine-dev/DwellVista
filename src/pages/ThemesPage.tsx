@@ -2,15 +2,16 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Search, Download, Eye, Star, Heading1, Heading3 } from "lucide-react";
+import { Search, Download, Eye, Star } from "lucide-react";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "../components/ui/tabs";
+import { Heading, Text } from "../components/ui/typography";
 import SEO from "../components/SEO";
+import { TopBannerAd, InArticleAd } from "../components/ads/AdLayout";
 import NewsletterSection from "@/components/home/NewsletterSection";
-import { Paragraph } from "@/components/ui/typography";
 
 // Sample theme data with real images from Pexels
 const themes = [
@@ -192,22 +193,27 @@ export default function ThemesPage() {
         className="pt-24"
       >
         <div className="container mx-auto px-4 py-8">
-          <Heading1 className="mb-8">Design Themes</Heading1>
+          <Heading level={1} className="mb-8">
+            Design Themes
+          </Heading>
+
+          {/* Top Banner Ad */}
+          <TopBannerAd />
 
           {/* Hero Section */}
           <div className="bg-gradient-to-r from-emerald-50 to-blue-50 dark:from-emerald-900/20 dark:to-blue-900/20 rounded-xl p-8 mb-12">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
-                <Heading3 className="mb-4">
+                <Heading level={3} className="mb-4">
                   Transform Your Space with Premium Design Themes
-                </Heading3>
-                <Paragraph className="mb-6">
+                </Heading>
+                <Text className="mb-6">
                   Our curated collection of design themes offers inspiration and
                   practical guidance for creating beautiful, functional living
                   spaces. Each theme includes color palettes, furniture
                   recommendations, and styling tips from professional interior
                   designers.
-                </Paragraph>
+                </Text>
                 <Button className="bg-emerald-600 hover:bg-emerald-700">
                   Explore Themes
                 </Button>
@@ -222,10 +228,15 @@ export default function ThemesPage() {
             </div>
           </div>
 
+          {/* In-Article Ad */}
+          <InArticleAd />
+
           {/* Featured Themes */}
           {featuredThemes.length > 0 && (
             <div className="mb-12">
-              <Heading3 className="mb-6">Featured Themes</Heading3>
+              <Heading level={3} className="mb-6">
+                Featured Themes
+              </Heading>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {featuredThemes.map((theme, index) => (
                   <motion.div

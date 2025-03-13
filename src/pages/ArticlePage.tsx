@@ -1,9 +1,5 @@
-"use client";
-
-"use client";
-
 import type React from "react";
-
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -12,30 +8,33 @@ import {
   Facebook,
   Twitter,
   Instagram,
+  Calendar,
+  Clock,
 } from "lucide-react";
 import { articles, comments } from "../data/articleData";
-import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
-import { Button } from "../components/ui/button";
-import { Textarea } from "../components/ui/textarea";
-import { Input } from "../components/ui/input";
-import {
-  ArticleTitle,
-  SectionTitle,
-  Paragraph,
-  Quote,
-} from "../components/ui/typography";
-import { CalendarIcon, ClockIcon } from "lucide-react";
-import { Separator } from "../components/ui/separator";
-import { Badge } from "../components/ui/badge";
-import ReadingProgress from "../components/ReadingProgress";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { Heading, Text, Quote } from "@/components/ui/typography";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import ReadingProgress from "@/components/ReadingProgress";
 import SEO from "@/components/SEO";
 import ArticleJsonLd from "@/components/ArticleJsonLd";
 import ScrollToTop from "@/components/ScrollToTop";
-import TableOfContents from "../components/TableOfContents";
-import { useEffect, useState } from "react";
-import RecommendedArticles from "../components/RecommendedArticles";
-import PrintButton from "../components/PrintButton";
+import TableOfContents from "@/components/TableOfContents";
+import RecommendedArticles from "@/components/RecommendedArticles";
+import PrintButton from "@/components/PrintButton";
 import "../article-page-print.css";
+import {
+  TopBannerAd,
+  SidebarAd,
+  InArticleAd,
+  ParallaxAd,
+  InterstitialAd,
+} from "@/components/ads/AdLayout";
+import type { Article, Comment } from "../types/article";
 
 const ArticleShare = ({ title, url }: { title: string; url: string }) => {
   const handleShare = () => {
@@ -65,14 +64,24 @@ const ArticleShare = ({ title, url }: { title: string; url: string }) => {
 };
 
 export default function ArticlePage() {
-  const { slug } = useParams();
-  const article = articles.find((a) => a.slug === slug);
+  const { slug } = useParams<{ slug: string }>();
+  const article = articles.find((a: Article) => a.slug === slug);
+
+  // Initialize state variables with default values
+  const [commentText, setCommentText] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [saveInfo, setSaveInfo] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   if (!article) return <div>Article not found</div>;
 
-  const articleComments = comments.filter((c) => c.articleId === article.id);
+  const articleComments = comments.filter(
+    (c: Comment) => c.articleId === article.id
+  );
   const relatedArticles = article.relatedArticles
-    ? articles.filter((a) => article.relatedArticles?.includes(a.id))
+    ? articles.filter((a: Article) => article.relatedArticles?.includes(a.id))
     : [];
 
   // Format date for SEO
@@ -87,12 +96,6 @@ export default function ArticlePage() {
     `Read about ${article.title} in our detailed guide on ${article.category}.`;
 
   // Add after the like state
-  const [commentText, setCommentText] = useState("");
-  const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [saveInfo, setSaveInfo] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showScrollTop, setShowScrollTop] = useState(false);
 
   const handleCommentSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -123,7 +126,6 @@ export default function ArticlePage() {
   };
 
   // Add after the handlePrint function
-
   useEffect(() => {
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 300);
@@ -166,9 +168,13 @@ export default function ArticlePage() {
 
       <ScrollToTop />
       <ReadingProgress />
+
+      {/* Interstitial Ad */}
+      <InterstitialAd />
+
       {/* Navigation Dots */}
       <div className="fixed left-4 top-1/2 -translate-y-1/2 space-y-2 hidden md:block">
-        {article.content.sections.map((_, index) => (
+        {article.content.sections.map((_: any, index: number) => (
           <a
             key={index}
             href={`#section-${index}`}
@@ -178,6 +184,9 @@ export default function ArticlePage() {
       </div>
 
       <div className="container mx-auto px-4 py-8">
+        {/* Top Banner Ad */}
+        <TopBannerAd />
+
         {/* Back Button */}
         <Link
           to="/"
@@ -197,19 +206,19 @@ export default function ArticlePage() {
             <span className="uppercase font-medium">{article.category}</span>
             <span className="hidden sm:inline">•</span>
             <span className="flex items-center gap-1">
-              <CalendarIcon className="h-4 w-4" />
+              <Calendar className="h-4 w-4" />
               {article.date}
             </span>
             <span className="hidden sm:inline">•</span>
             <span className="flex items-center gap-1">
-              <ClockIcon className="h-4 w-4" />
+              <Clock className="h-4 w-4" />
               {article.readTime || "5 min read"}
             </span>
           </div>
 
-          <ArticleTitle className="mb-6 text-2xl sm:text-3xl md:text-4xl">
+          <Heading level={1} className="mb-6 text-2xl sm:text-3xl md:text-4xl">
             {article.title}
-          </ArticleTitle>
+          </Heading>
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-4 w-full sm:w-auto">
@@ -255,10 +264,12 @@ export default function ArticlePage() {
             {/* Table of Contents - Only visible on desktop */}
             <div className="hidden lg:block mb-8">
               <TableOfContents
-                sections={article.content.sections.map((section, index) => ({
-                  title: section.title,
-                  id: `section-${index}`,
-                }))}
+                sections={article.content.sections.map(
+                  (section: any, index: number) => ({
+                    title: section.title,
+                    id: `section-${index}`,
+                  })
+                )}
               />
             </div>
 
@@ -270,22 +281,27 @@ export default function ArticlePage() {
                 </summary>
                 <div className="p-4 pt-0 border-t border-gray-200">
                   <nav className="space-y-2">
-                    {article.content.sections.map((section, index) => (
-                      <a
-                        key={index}
-                        href={`#section-${index}`}
-                        className="block text-sm hover:text-emerald-600 transition-colors py-1"
-                      >
-                        {section.title}
-                      </a>
-                    ))}
+                    {article.content.sections.map(
+                      (section: any, index: number) => (
+                        <a
+                          key={index}
+                          href={`#section-${index}`}
+                          className="block text-sm hover:text-emerald-600 transition-colors py-1"
+                        >
+                          {section.title}
+                        </a>
+                      )
+                    )}
                   </nav>
                 </div>
               </details>
             </div>
 
+            {/* In-Article Ad */}
+            <InArticleAd />
+
             {/* Article sections */}
-            {article.content.sections.map((section, index) => (
+            {article.content.sections.map((section: any, index: number) => (
               <motion.section
                 key={index}
                 id={`section-${index}`}
@@ -294,9 +310,9 @@ export default function ArticlePage() {
                 transition={{ delay: index * 0.1 }}
                 className="mb-12 article-section"
               >
-                <SectionTitle className="mb-6 text-xl sm:text-2xl">
+                <Heading level={2} className="mb-6 text-xl sm:text-2xl">
                   {section.title}
-                </SectionTitle>
+                </Heading>
                 {section.image && (
                   <img
                     src={section.image || "/placeholder.svg"}
@@ -304,9 +320,9 @@ export default function ArticlePage() {
                     className="mb-6 w-full rounded-lg object-cover h-[200px] sm:h-[300px]"
                   />
                 )}
-                <Paragraph className="mb-6 text-base sm:text-lg whitespace-pre-line article-content">
+                <Text className="mb-6 text-base sm:text-lg whitespace-pre-line article-content">
                   {section.content}
-                </Paragraph>
+                </Text>
                 {section.quote && (
                   <Quote
                     author={section.quote.author}
@@ -315,6 +331,9 @@ export default function ArticlePage() {
                     "{section.quote.text}"
                   </Quote>
                 )}
+
+                {/* Add Parallax Ad after every 2 sections */}
+                {index % 2 === 1 && <ParallaxAd />}
               </motion.section>
             ))}
 
@@ -324,7 +343,7 @@ export default function ArticlePage() {
             <div className="mb-8 sm:mb-12">
               <h3 className="text-lg font-semibold mb-4">Tags</h3>
               <div className="flex flex-wrap gap-2">
-                {article.tags?.map((tag, index) => (
+                {article.tags?.map((tag: any, index: number) => (
                   <Link key={index} to={`/tag/${tag.toLowerCase()}`}>
                     <Badge
                       variant="outline"
@@ -358,7 +377,7 @@ export default function ArticlePage() {
                 {articleComments.length} Comments
               </h3>
               <div className="space-y-6">
-                {articleComments.map((comment) => (
+                {articleComments.map((comment: any) => (
                   <div
                     key={comment.id}
                     className="flex flex-col sm:flex-row gap-4 p-4 rounded-lg bg-gray-50"
@@ -424,7 +443,9 @@ export default function ArticlePage() {
                       id="name"
                       placeholder="John Doe"
                       value={userName}
-                      onChange={(e) => setUserName(e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setUserName(e.target.value)
+                      }
                       required
                     />
                   </div>
@@ -440,7 +461,9 @@ export default function ArticlePage() {
                       type="email"
                       placeholder="john@example.com"
                       value={userEmail}
-                      onChange={(e) => setUserEmail(e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setUserEmail(e.target.value)
+                      }
                       required
                     />
                   </div>
@@ -457,7 +480,9 @@ export default function ArticlePage() {
                     placeholder="Write your comment here..."
                     rows={6}
                     value={commentText}
-                    onChange={(e) => setCommentText(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                      setCommentText(e.target.value)
+                    }
                     required
                   />
                 </div>
@@ -467,7 +492,9 @@ export default function ArticlePage() {
                     id="save-info"
                     className="mt-1 sm:mt-0 rounded text-emerald-600"
                     checked={saveInfo}
-                    onChange={(e) => setSaveInfo(e.target.checked)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setSaveInfo(e.target.checked)
+                    }
                   />
                   <label htmlFor="save-info" className="text-sm">
                     Save my name and email for the next time I comment
@@ -537,31 +564,32 @@ export default function ArticlePage() {
                 </div>
               </div>
 
+              {/* Sidebar Ad */}
+              <SidebarAd />
+
               {/* Related Articles */}
               <div className="bg-gray-50 p-4 sm:p-6 rounded-lg">
                 <h3 className="text-lg font-bold mb-4 font-serif">
                   Related Articles
                 </h3>
                 <div className="space-y-4">
-                  {relatedArticles.slice(0, 3).map((related) => (
+                  {relatedArticles.slice(0, 3).map((related: any) => (
                     <Link
                       key={related.id}
                       to={`/article/${related.slug}`}
-                      className="group block"
+                      className="group"
                     >
-                      <div className="flex gap-3 items-start">
-                        <div className="flex-shrink-0">
-                          <img
-                            src={related.image || "/placeholder.svg"}
-                            alt={related.title}
-                            className="h-16 w-16 sm:h-20 sm:w-20 object-cover rounded-md"
-                          />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h4 className="text-sm sm:text-base font-medium group-hover:text-emerald-600 transition-colors line-clamp-2">
+                      <div className="flex gap-3">
+                        <img
+                          src={related.image || "/placeholder.svg"}
+                          alt={related.title}
+                          className="h-16 w-16 object-cover rounded-md flex-shrink-0"
+                        />
+                        <div>
+                          <h4 className="text-sm font-medium group-hover:text-emerald-600 transition-colors line-clamp-2">
                             {related.title}
                           </h4>
-                          <p className="text-xs text-gray-500 mt-1">
+                          <p className="text-xs text-muted-foreground mt-1">
                             {related.date}
                           </p>
                         </div>

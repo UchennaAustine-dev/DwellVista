@@ -9,7 +9,7 @@ import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { Textarea } from "../components/ui/textarea";
 import { Card, CardContent } from "../components/ui/card";
-import { Heading1, Heading3, Paragraph } from "../components/ui/typography";
+import { Heading, Paragraph } from "../components/ui/typography";
 import SEO from "../components/SEO";
 import NewsletterSection from "../components/home/NewsletterSection";
 
@@ -69,7 +69,9 @@ export default function ContactPage() {
         className="pt-24"
       >
         <div className="container mx-auto px-4 py-8">
-          <Heading1 className="mb-8">Contact Us</Heading1>
+          <Heading level={1} className="mb-8">
+            Contact Us
+          </Heading>
 
           {/* Contact Info Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
@@ -143,7 +145,9 @@ export default function ContactPage() {
           {/* Contact Form and Map */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
             <div>
-              <Heading3 className="mb-6">Send Us a Message</Heading3>
+              <Heading level={3} className="mb-6">
+                Send Us a Message
+              </Heading>
 
               {isSubmitted ? (
                 <motion.div
@@ -266,7 +270,9 @@ export default function ContactPage() {
             </div>
 
             <div>
-              <Heading3 className="mb-6">Our Location</Heading3>
+              <Heading level={3} className="mb-6">
+                Our Location
+              </Heading>
               <div className="rounded-lg overflow-hidden h-[400px] bg-gray-100">
                 {/* Replace with actual map component or iframe */}
                 <div className="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-800">
@@ -281,9 +287,9 @@ export default function ContactPage() {
 
           {/* FAQ Section */}
           <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-8">
-            <Heading3 className="mb-6 text-center">
+            <Heading level={3} className="mb-6 text-center">
               Frequently Asked Questions
-            </Heading3>
+            </Heading>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <h4 className="font-bold mb-2">
