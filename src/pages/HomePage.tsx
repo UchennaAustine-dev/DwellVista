@@ -73,8 +73,8 @@ import {
   InterstitialAd,
 } from "../components/ads/AdLayout";
 import { FeaturedPropertyCarousel } from "@/components/home/FeaturedPropertyCarousel";
-import { PremiumCtaSection } from "@/components/home/PremiumCtaSection";
-import { StatisticsSection } from "@/components/home/StatisticsSection";
+// import { PremiumCtaSection } from "@/components/home/PremiumCtaSection";
+// import { StatisticsSection } from "@/components/home/StatisticsSection";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import FeaturedArticles from "@/components/FeaturedArticles";
 import ArticlesGrid from "@/components/ArticleGrid";
@@ -165,10 +165,10 @@ export default function HomePage() {
         <NewsletterSection />
 
         {/* Statistics Section */}
-        <StatisticsSection />
+        {/* <StatisticsSection /> */}
 
         {/* Premium CTA Section */}
-        <PremiumCtaSection />
+        {/* <PremiumCtaSection /> */}
 
         {/* Sticky Ad */}
         <StickyAd />
