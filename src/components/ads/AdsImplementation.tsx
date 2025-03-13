@@ -27,10 +27,16 @@ export default function AdsImplementation() {
       </Text>
 
       <Tabs defaultValue="basic" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="basic">Basic Usage</TabsTrigger>
-          <TabsTrigger value="placement">Placement Strategy</TabsTrigger>
-          <TabsTrigger value="responsive">Responsive Ads</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 gap-2">
+          <TabsTrigger value="basic" className="text-xs sm:text-sm">
+            Basic Usage
+          </TabsTrigger>
+          <TabsTrigger value="placement" className="text-xs sm:text-sm">
+            Placement Strategy
+          </TabsTrigger>
+          <TabsTrigger value="responsive" className="text-xs sm:text-sm">
+            Responsive Ads
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="basic" className="space-y-8 mt-6">
@@ -47,7 +53,7 @@ export default function AdsImplementation() {
                   <Heading level={3} className="text-lg mb-2">
                     Step 1: Import the Ad Components
                   </Heading>
-                  <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
+                  <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto text-xs sm:text-sm">
                     <code>{`import { TopBannerAd, InArticleAd, SidebarAd } from "../components/ads/AdLayout"`}</code>
                   </pre>
                 </div>
@@ -56,7 +62,7 @@ export default function AdsImplementation() {
                   <Heading level={3} className="text-lg mb-2">
                     Step 2: Place the Ad Components in Your JSX
                   </Heading>
-                  <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
+                  <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto text-xs sm:text-sm">
                     <code>{`<div className="container">
   {/* Top of the page */}
   <TopBannerAd />
@@ -143,7 +149,7 @@ export default function AdsImplementation() {
                   <Heading level={3} className="text-lg mb-2">
                     Code Example: Strategic Placement
                   </Heading>
-                  <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
+                  <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto text-xs sm:text-sm">
                     <code>{`function ArticlePage({ article }) {
   return (
     <div className="container">
@@ -155,8 +161,8 @@ export default function AdsImplementation() {
       {/* First ad after introduction */}
       <InArticleAd />
       
-      <div className="grid grid-cols-3 gap-8">
-        <div className="col-span-2">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="md:col-span-2">
           {/* Main content */}
           {article.content.map((paragraph, index) => (
             <React.Fragment key={index}>
@@ -171,7 +177,7 @@ export default function AdsImplementation() {
           <ParallaxAd />
         </div>
         
-        <div className="col-span-1">
+        <div className="md:col-span-1">
           {/* Sidebar */}
           <SidebarAd />
         </div>
@@ -207,7 +213,7 @@ export default function AdsImplementation() {
                     Our ad components automatically handle responsive sizing
                     based on the device. You can customize the sizes:
                   </Text>
-                  <pre className="bg-gray-100 p-4 rounded-md mt-2 overflow-x-auto">
+                  <pre className="bg-gray-100 p-4 rounded-md mt-2 overflow-x-auto text-xs sm:text-sm">
                     <code>{`<TopBannerAd 
   desktopSizes="728x90,970x90" 
   mobileSizes="300x250,320x100,320x50" 
@@ -223,7 +229,7 @@ export default function AdsImplementation() {
                     You can conditionally render different ad formats based on
                     screen size:
                   </Text>
-                  <pre className="bg-gray-100 p-4 rounded-md mt-2 overflow-x-auto">
+                  <pre className="bg-gray-100 p-4 rounded-md mt-2 overflow-x-auto text-xs sm:text-sm">
                     <code>{`import { useEffect, useState } from 'react';
 
 function ResponsiveAds() {

@@ -44,11 +44,19 @@ export default function AdsShowcase() {
       </Text>
 
       <Tabs defaultValue="standard" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="standard">Standard Ads</TabsTrigger>
-          <TabsTrigger value="interactive">Interactive Ads</TabsTrigger>
-          <TabsTrigger value="native">Native Ads</TabsTrigger>
-          <TabsTrigger value="special">Special Formats</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 gap-2">
+          <TabsTrigger value="standard" className="text-xs md:text-sm">
+            Standard Ads
+          </TabsTrigger>
+          <TabsTrigger value="interactive" className="text-xs md:text-sm">
+            Interactive Ads
+          </TabsTrigger>
+          <TabsTrigger value="native" className="text-xs md:text-sm">
+            Native Ads
+          </TabsTrigger>
+          <TabsTrigger value="special" className="text-xs md:text-sm">
+            Special Formats
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="standard" className="space-y-8 mt-6">
@@ -122,7 +130,7 @@ export default function AdsShowcase() {
               </Button>
               {showInterstitial && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-                  <div className="bg-white p-4 rounded-lg max-w-2xl w-full">
+                  <div className="bg-white p-4 rounded-lg max-w-2xl w-full mx-4">
                     <div className="flex justify-between mb-4">
                       <Text className="font-bold">Advertisement</Text>
                       <Button
@@ -136,7 +144,7 @@ export default function AdsShowcase() {
                   </div>
                 </div>
               )}
-              <Text className="text-sm text-gray-500 mt-2">
+              <Text className="text-sm text-gray-500 mt-2 text-center">
                 Click the button to simulate an interstitial ad experience.
               </Text>
             </CardContent>
@@ -158,7 +166,7 @@ export default function AdsShowcase() {
                 Show Notification Ad
               </Button>
               {showNotification && (
-                <div className="fixed bottom-4 right-4 max-w-xs w-full bg-white shadow-lg rounded-lg overflow-hidden z-50">
+                <div className="fixed bottom-4 right-4 max-w-xs w-full bg-white shadow-lg rounded-lg overflow-hidden z-50 mx-4">
                   <div className="flex justify-between p-2 bg-gray-100">
                     <Text className="text-sm font-bold">New Notification</Text>
                     <Button
@@ -175,7 +183,7 @@ export default function AdsShowcase() {
                   </div>
                 </div>
               )}
-              <Text className="text-sm text-gray-500 mt-2">
+              <Text className="text-sm text-gray-500 mt-2 text-center">
                 Click the button to simulate a notification ad.
               </Text>
             </CardContent>
