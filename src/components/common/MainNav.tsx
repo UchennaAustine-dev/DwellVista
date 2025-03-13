@@ -44,10 +44,12 @@ export default function MainNav() {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between px-4">
+        {/* Logo */}
         <Link to="/" className="text-2xl font-bold text-emerald-700 font-serif">
           DwellVista
         </Link>
 
+        {/* Desktop Navigation */}
         <nav className="hidden space-x-8 md:flex items-center">
           {navLinks.map((link) => (
             <Link
@@ -79,6 +81,7 @@ export default function MainNav() {
           </div>
         </nav>
 
+        {/* Mobile Navigation Toggle */}
         <div className="flex items-center gap-2 md:hidden">
           <Button variant="ghost" size="icon" className="rounded-full">
             <Search className="h-5 w-5" />
@@ -98,7 +101,7 @@ export default function MainNav() {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
