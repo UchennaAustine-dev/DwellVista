@@ -25,7 +25,8 @@ const properties = [
     bedrooms: 2,
     bathrooms: 2,
     area: 1200,
-    image: "/placeholder.svg?height=300&width=500",
+    image:
+      "https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=300&w=500",
     featured: true,
   },
   {
@@ -37,7 +38,8 @@ const properties = [
     bedrooms: 4,
     bathrooms: 3,
     area: 2500,
-    image: "/placeholder.svg?height=300&width=500",
+    image:
+      "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=300&w=500",
     featured: false,
   },
   {
@@ -49,7 +51,8 @@ const properties = [
     bedrooms: 3,
     bathrooms: 3.5,
     area: 3000,
-    image: "/placeholder.svg?height=300&width=500",
+    image:
+      "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=300&w=500",
     featured: true,
   },
   {
@@ -61,7 +64,8 @@ const properties = [
     bedrooms: 1,
     bathrooms: 1,
     area: 600,
-    image: "/placeholder.svg?height=300&width=500",
+    image:
+      "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=300&w=500",
     featured: false,
   },
   {
@@ -73,7 +77,8 @@ const properties = [
     bedrooms: 5,
     bathrooms: 4,
     area: 4500,
-    image: "/placeholder.svg?height=300&width=500",
+    image:
+      "https://images.pexels.com/photos/210617/pexels-photo-210617.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=300&w=500",
     featured: true,
   },
   {
@@ -85,7 +90,8 @@ const properties = [
     bedrooms: 3,
     bathrooms: 2.5,
     area: 1800,
-    image: "/placeholder.svg?height=300&width=500",
+    image:
+      "https://images.pexels.com/photos/259600/pexels-photo-259600.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=300&w=500",
     featured: false,
   },
 ];
