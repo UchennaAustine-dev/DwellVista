@@ -18,6 +18,9 @@ import BlogPage from "./pages/BlogPage";
 import ContactPage from "./pages/ContactPage";
 import PropertiesPage from "./pages/PropertiesPage";
 import ThemesPage from "./pages/ThemesPage";
+import { InterstitialAd, AnchorAd } from "./components/ads/AdLayout";
+import ScrollToTop from "./components/ScrollToTop";
+import AdsPage from "./pages/AdsPage";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -33,6 +36,7 @@ function AnimatedRoutes() {
         <Route path="/contact-us" element={<ContactPage />} />
         <Route path="/article/:slug" element={<ArticlePage />} />
         <Route path="/category/:slug" element={<CategoryPage />} />
+        <Route path="/ads" element={<AdsPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -43,6 +47,7 @@ function AnimatedRoutes() {
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="flex min-h-screen flex-col">
         <MainNav />
         <main className="flex-1">
@@ -51,6 +56,8 @@ function App() {
         <Footer />
       </div>
       <GDPRConsent />
+      <InterstitialAd />
+      <AnchorAd />
     </Router>
   );
 }

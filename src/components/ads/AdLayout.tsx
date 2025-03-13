@@ -82,3 +82,33 @@ export function NotificationAd() {
     />
   );
 }
+
+export function VideoAd() {
+  return (
+    <div className="my-8 flex justify-center">
+      <NetpubAd
+        type="video"
+        slot={5}
+        desktopSizes="640x360"
+        mobileSizes="300x250"
+      />
+    </div>
+  );
+}
+
+export function NativeAd() {
+  return (
+    <div className="my-6 bg-gray-50 p-4 rounded-lg">
+      <NetpubAd
+        type="native"
+        slot={6}
+        desktopSizes="fluid"
+        mobileSizes="fluid"
+      />
+    </div>
+  );
+}
+
+export function AnchorAd() {
+  return <NetpubAd type="anchor" desktopSizes="728x90" mobileSizes="320x50" />;
+}

@@ -12,7 +12,12 @@ import { Badge } from "../components/ui/badge";
 import { Heading } from "../components/ui/typography";
 import SEO from "../components/SEO";
 import NewsletterSection from "../components/home/NewsletterSection";
-import { TopBannerAd, InArticleAd } from "../components/ads/AdLayout";
+import {
+  TopBannerAd,
+  InArticleAd,
+  ParallaxAd,
+  SidebarAd,
+} from "../components/ads/AdLayout";
 
 // Sample property data
 const properties = [
@@ -221,24 +226,44 @@ export default function PropertiesPage() {
               <Heading level={3} className="mb-6">
                 Featured Properties
               </Heading>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredProperties
-                  .filter((property) => property.featured)
-                  .map((property) => (
-                    <PropertyCard key={property.id} property={property} />
-                  ))}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="md:col-span-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {filteredProperties
+                      .filter((property) => property.featured)
+                      .slice(0, 2)
+                      .map((property) => (
+                        <PropertyCard key={property.id} property={property} />
+                      ))}
+                  </div>
+                </div>
+                <div>
+                  <SidebarAd />
+                </div>
               </div>
             </div>
           )}
+
+          {/* Parallax Ad */}
+          <ParallaxAd />
 
           {/* All Properties */}
           <div>
             <Heading level={3} className="mb-6">
               All Properties
             </Heading>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProperties.map((property) => (
-                <PropertyCard key={property.id} property={property} />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {filteredProperties.map((property, index) => (
+                <>
+                  <PropertyCard key={property.id} property={property} />
+                  {/* Add InArticleAd after every 3 properties */}
+                  {(index + 1) % 3 === 0 &&
+                    index !== filteredProperties.length - 1 && (
+                      <div className="col-span-1 md:col-span-3">
+                        <InArticleAd />
+                      </div>
+                    )}
+                </>
               ))}
             </div>
 

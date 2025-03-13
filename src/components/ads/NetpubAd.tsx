@@ -7,7 +7,10 @@ type AdType =
   | "sticky"
   | "interstitial"
   | "parallax"
-  | "notification";
+  | "notification"
+  | "video"
+  | "native"
+  | "anchor";
 
 interface NetpubAdProps {
   adId?: string;
@@ -57,6 +60,9 @@ export default function NetpubAd({
       if (type === "parallax") ins.setAttribute("data-parallax", "1");
       if (type === "notification")
         ins.setAttribute("data-notification", String(notificationId || 1));
+      if (type === "video") ins.setAttribute("data-video", "1");
+      if (type === "native") ins.setAttribute("data-native", "1");
+      if (type === "anchor") ins.setAttribute("data-anchor", "1");
 
       // Clear the container and append the ad
       adRef.current.innerHTML = "";

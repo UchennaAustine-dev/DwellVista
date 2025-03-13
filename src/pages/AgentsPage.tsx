@@ -11,7 +11,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { Heading, Text } from "../components/ui/typography";
 import SEO from "../components/SEO";
 import NewsletterSection from "../components/home/NewsletterSection";
-import { TopBannerAd, InArticleAd } from "../components/ads/AdLayout";
+import {
+  TopBannerAd,
+  InArticleAd,
+  SidebarAd,
+  VideoAd,
+} from "../components/ads/AdLayout";
 
 // Sample agent data
 const agents = [
@@ -176,7 +181,7 @@ export default function AgentsPage() {
               <Heading level={3} className="mb-6">
                 Featured Agents
               </Heading>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {featuredAgents.map((agent) => (
                   <AgentCard key={agent.id} agent={agent} />
                 ))}
@@ -184,15 +189,44 @@ export default function AgentsPage() {
             </div>
           )}
 
+          {/* Video Ad */}
+          <VideoAd />
+
           {/* All Agents */}
           <div>
             <Heading level={3} className="mb-6">
               All Agents
             </Heading>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {regularAgents.map((agent) => (
-                <AgentCard key={agent.id} agent={agent} />
-              ))}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                {regularAgents.map((agent) => (
+                  <AgentCard key={agent.id} agent={agent} />
+                ))}
+              </div>
+              <div>
+                <div className="sticky top-24">
+                  <SidebarAd />
+                  <div className="mt-6">
+                    <Card>
+                      <CardContent className="p-4">
+                        <h3 className="font-bold text-lg mb-4">
+                          Looking to Join Our Team?
+                        </h3>
+                        <p className="text-muted-foreground text-sm mb-4">
+                          We're always looking for talented real estate
+                          professionals to join our team. Apply today!
+                        </p>
+                        <Button className="w-full bg-emerald-600 hover:bg-emerald-700">
+                          Apply Now
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </div>
+                  <div className="mt-6">
+                    <SidebarAd />
+                  </div>
+                </div>
+              </div>
             </div>
 
             {filteredAgents.length === 0 && (

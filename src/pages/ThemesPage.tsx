@@ -10,7 +10,13 @@ import { Badge } from "../components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "../components/ui/tabs";
 import { Heading, Text } from "../components/ui/typography";
 import SEO from "../components/SEO";
-import { TopBannerAd, InArticleAd } from "../components/ads/AdLayout";
+import {
+  TopBannerAd,
+  InArticleAd,
+  NativeAd,
+  ParallaxAd,
+  SidebarAd,
+} from "../components/ads/AdLayout";
 import NewsletterSection from "@/components/home/NewsletterSection";
 
 // Sample theme data with real images from Pexels
@@ -252,6 +258,9 @@ export default function ThemesPage() {
             </div>
           )}
 
+          {/* Native Ad */}
+          <NativeAd />
+
           {/* Search and Categories */}
           <div className="mb-8">
             <div className="relative max-w-md mb-6">
@@ -286,17 +295,41 @@ export default function ThemesPage() {
           {/* All Themes */}
           <div>
             {filteredThemes.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredThemes.map((theme, index) => (
-                  <motion.div
-                    key={theme.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                  >
-                    <ThemeCard theme={theme} />
-                  </motion.div>
-                ))}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="md:col-span-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {filteredThemes.map((theme, index) => (
+                      <motion.div
+                        key={theme.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                      >
+                        <ThemeCard theme={theme} />
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <div className="sticky top-24 space-y-6">
+                    <SidebarAd />
+                    <Card>
+                      <CardContent className="p-4">
+                        <h3 className="font-bold text-lg mb-4">
+                          Premium Themes
+                        </h3>
+                        <p className="text-muted-foreground text-sm mb-4">
+                          Get access to our exclusive premium themes with a
+                          subscription.
+                        </p>
+                        <Button className="w-full bg-emerald-600 hover:bg-emerald-700">
+                          Subscribe Now
+                        </Button>
+                      </CardContent>
+                    </Card>
+                    <SidebarAd />
+                  </div>
+                </div>
               </div>
             ) : (
               <div className="text-center py-12">
@@ -322,6 +355,9 @@ export default function ThemesPage() {
               </div>
             )}
           </div>
+
+          {/* Parallax Ad */}
+          <ParallaxAd />
         </div>
 
         <NewsletterSection />

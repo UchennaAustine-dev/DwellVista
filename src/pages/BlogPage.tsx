@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Search, Calendar, User } from "lucide-react";
@@ -10,11 +8,16 @@ import { Badge } from "../components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "../components/ui/tabs";
 import { Heading } from "../components/ui/typography";
 import SEO from "../components/SEO";
+import NewsletterSection from "../components/home/NewsletterSection";
 import Sidebar from "../components/Sidebar";
 import { articles } from "../data/articleData";
 import { Link } from "react-router-dom";
-import { TopBannerAd, InArticleAd } from "../components/ads/AdLayout";
-import NewsletterSection from "@/components/home/NewsletterSection";
+import {
+  TopBannerAd,
+  InArticleAd,
+  ParallaxAd,
+  VideoAd,
+} from "../components/ads/AdLayout";
 
 export default function BlogPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -147,47 +150,59 @@ export default function BlogPage() {
             </Tabs>
           </div>
 
+          {/* Video Ad */}
+          <VideoAd />
+
           {/* Articles Grid and Sidebar */}
           <div className="grid gap-8 md:grid-cols-3">
             <div className="md:col-span-2">
               {filteredArticles.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {filteredArticles.map((article, index) => (
-                    <motion.div
-                      key={article.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.05 }}
-                    >
-                      <Link to={`/article/${article.slug}`}>
-                        <Card className="overflow-hidden h-full group">
-                          <div className="relative">
-                            <img
-                              src={article.image || "/placeholder.svg"}
-                              alt={article.title}
-                              className="h-[200px] w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                            />
-                            <Badge className="absolute top-3 left-3">
-                              {article.category}
-                            </Badge>
-                          </div>
-                          <CardContent className="p-4">
-                            <h3 className="font-bold text-lg mb-2 group-hover:text-emerald-600 transition-colors">
-                              {article.title}
-                            </h3>
-                            <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
-                              {article.excerpt}
-                            </p>
-                            <div className="flex items-center text-xs text-muted-foreground">
-                              <Calendar className="h-3 w-3 mr-1" />
-                              <span className="mr-3">{article.date}</span>
-                              <User className="h-3 w-3 mr-1" />
-                              <span>{article.author.name}</span>
+                    <>
+                      <motion.div
+                        key={article.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                      >
+                        <Link to={`/article/${article.slug}`}>
+                          <Card className="overflow-hidden h-full group">
+                            <div className="relative">
+                              <img
+                                src={article.image || "/placeholder.svg"}
+                                alt={article.title}
+                                className="h-[200px] w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                              />
+                              <Badge className="absolute top-3 left-3">
+                                {article.category}
+                              </Badge>
                             </div>
-                          </CardContent>
-                        </Card>
-                      </Link>
-                    </motion.div>
+                            <CardContent className="p-4">
+                              <h3 className="font-bold text-lg mb-2 group-hover:text-emerald-600 transition-colors">
+                                {article.title}
+                              </h3>
+                              <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
+                                {article.excerpt}
+                              </p>
+                              <div className="flex items-center text-xs text-muted-foreground">
+                                <Calendar className="h-3 w-3 mr-1" />
+                                <span className="mr-3">{article.date}</span>
+                                <User className="h-3 w-3 mr-1" />
+                                <span>{article.author.name}</span>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </Link>
+                      </motion.div>
+                      {/* Add InArticleAd after every 4 articles */}
+                      {(index + 1) % 4 === 0 &&
+                        index !== filteredArticles.length - 1 && (
+                          <div className="col-span-1 sm:col-span-2">
+                            <InArticleAd />
+                          </div>
+                        )}
+                    </>
                   ))}
                 </div>
               ) : (
@@ -218,6 +233,9 @@ export default function BlogPage() {
             {/* Sidebar */}
             <Sidebar />
           </div>
+
+          {/* Parallax Ad */}
+          <ParallaxAd />
         </div>
 
         <NewsletterSection />

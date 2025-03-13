@@ -1,7 +1,9 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "../ui/button";
-import { Menu, X, Search } from "lucide-react";
+import { Menu, X, Search, DollarSign } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
@@ -10,6 +12,7 @@ const navLinks = [
   { to: "/agents", label: "AGENTS" },
   { to: "/blog", label: "BLOG" },
   { to: "/themes", label: "THEMES" },
+  { to: "/ads", label: "ADS" },
   { to: "/contact-us", label: "CONTACT US" },
 ];
 
@@ -56,7 +59,14 @@ export default function MainNav() {
                   : "text-gray-700"
               }`}
             >
-              {link.label}
+              {link.label === "ADS" ? (
+                <span className="flex items-center gap-1">
+                  <DollarSign className="h-4 w-4" />
+                  {link.label}
+                </span>
+              ) : (
+                link.label
+              )}
             </Link>
           ))}
           <div className="flex items-center gap-2 ml-4">
@@ -109,7 +119,14 @@ export default function MainNav() {
                         : "text-gray-700"
                     }`}
                   >
-                    {link.label}
+                    {link.label === "ADS" ? (
+                      <span className="flex items-center gap-1">
+                        <DollarSign className="h-4 w-4" />
+                        {link.label}
+                      </span>
+                    ) : (
+                      link.label
+                    )}
                   </Link>
                 ))}
                 <div className="relative mt-2">
