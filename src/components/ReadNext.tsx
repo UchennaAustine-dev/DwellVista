@@ -3,7 +3,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import type { Article } from "../types/article";
-import { Heading3, Paragraph } from "./ui/typography";
+import { Heading, Paragraph } from "./ui/typography";
 
 interface ReadNextProps {
   article: Article;
@@ -22,7 +22,7 @@ export default function ReadNext({ article }: ReadNextProps) {
         <span className="font-sans text-xs uppercase tracking-widest font-medium text-emerald-600 mb-2 block">
           Continue Reading
         </span>
-        <Heading3>Read Next</Heading3>
+        <Heading level={3}>Read Next</Heading>
       </div>
 
       <div className="bg-gray-50 dark:bg-gray-900 rounded-xl overflow-hidden">
