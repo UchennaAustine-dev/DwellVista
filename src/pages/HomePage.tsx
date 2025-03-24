@@ -78,8 +78,24 @@ import { FeaturedPropertyCarousel } from "@/components/home/FeaturedPropertyCaro
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import FeaturedArticles from "@/components/FeaturedArticles";
 import ArticlesGrid from "@/components/ArticleGrid";
+import { useEffect } from "react";
 
 export default function HomePage() {
+  // Load third-party scripts using useEffect
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.innerHTML = `
+        aclib.runAutoTag({
+          zoneId: 'ibktzhvmbs',
+        });
+      `;
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
   return (
     <>
       {/* SEO and Structured Data */}
