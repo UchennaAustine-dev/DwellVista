@@ -83,13 +83,21 @@ import { useEffect } from "react";
 export default function HomePage() {
   // Load third-party scripts using useEffect
   useEffect(() => {
+    // Add error handling for script loading
+    if (typeof aclib === "undefined") {
+      console.warn("aclib not available");
+      return;
+    }
+
     const script = document.createElement("script");
     script.type = "text/javascript";
+    script.async = true; // Add async for better performance
     script.innerHTML = `
-        aclib.runAutoTag({
-          zoneId: 'ibktzhvmbs',
-        });
-      `;
+      aclib.runAutoTag({
+        zoneId: ['ibktzhvmbs', 'gb5prnslvy']
+      });
+    `;
+
     document.head.appendChild(script);
 
     return () => {
